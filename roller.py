@@ -1,4 +1,8 @@
+#used for the random rolls
 import random
+
+#used for rounding the scores
+import math
 
 #Used to roll for John's point buy
 def roll_tower():
@@ -105,4 +109,12 @@ def no_1s_roll():
     block.append(total_block)
     return block
 
-    
+#Function to turn the block into the score that it would provide
+def block_to_score(block):
+    #formula is (score - 10)/2
+    score = block[-1] - 10
+    score /= 2
+
+    score = math.floor(score)
+
+    return score
