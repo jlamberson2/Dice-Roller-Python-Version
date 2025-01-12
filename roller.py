@@ -39,16 +39,10 @@ def regular_roll():
     for i in range(4):
         block.append(random.randint(1, 6))
 
-    total_block = 0
-
     block.sort()
 
-    #after the block sorts, exclude the first as this is 4D6 drop the lowest
-    for i in range(4):
-        if i > 0:
-            total_block += block[i]
-    
-    block.append(total_block)
+    #Adds the total and the modifier to the array
+    block = block_condensing(block)
 
     return block
 
@@ -64,16 +58,9 @@ def reroll_1s_roll():
         if block[i] == 1:
             block[i] = random.randint(1,6)
     
-    total_block = 0
-
-    block.sort()
+    #Adds the total and the modifier to the array
+    block = block_condensing(block)
     
-    #after the block sorts, exclude the first as this is 4D6 drop the lowest
-    for i in range(4):
-        if i > 0:
-            total_block += block[i]
-    
-    block.append(total_block)
     return block
 
 #Roll method to guarentee no 1s in the stat block
@@ -98,16 +85,13 @@ def no_1s_roll():
     
     block.sort()
 
-    total_block = 0
-    
-    #TODO: add total to block
-    #after the block sorts, exclude the first as this is 4D6 drop the lowest
-    for i in range(4):
-        if i > 0:
-            total_block += block[i]
-    
-    block.append(total_block)
+    #Adds the total and the modifier to the array
+    block = block_condensing(block)
+
     return block
+
+#------------------------------------------------------------------------------------------
+#bar to seperate roll functions to condensing functions
 
 #Function to turn the block into the score that it would provide
 def block_to_score(block):
@@ -118,3 +102,26 @@ def block_to_score(block):
     score = math.floor(score)
 
     return score
+
+#turns the block into a total score
+def block_to_total(block):
+    total = 0
+    block.sort()
+
+    for i in block:
+        total += i
+
+    total -= block[0]
+    
+    return total
+
+#adds the total score to the block and the modifier the total comes to
+def block_condensing(block):
+    block.sort()
+
+    block.append(block_to_total(block))
+    block.append(block_to_score(block))
+
+    return block
+
+#execution testing space
