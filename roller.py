@@ -63,7 +63,7 @@ def reroll_1s_roll():
     
     return block
 
-#Roll method to guarentee no 1s in the stat block
+#Roll method to guarentee no 1s in the stat block TODO: Relook at method
 def no_1s_roll():
     #Declare and fill stat block with rolls
     block = []
@@ -89,6 +89,28 @@ def no_1s_roll():
     block = block_condensing(block)
 
     return block
+
+
+#Roll 12d6 and add them to the 6 arrays that already have 6 in them #TODO: research more into this roll method
+def roll_12d6():
+    #start with one 6 in the array
+    block = [6]
+
+    #roll 2d6 to add to the array
+    for i in range(2):
+        block.append(random.randint(1,6))
+    #add an extra 0 to the array for use of the block condensing function to work
+    block.append(0)
+    
+    block.sort()
+
+    #add total and modifier to the array
+    block = block_condensing(block)
+
+    return block
+
+
+
 
 #------------------------------------------------------------------------------------------
 #bar to seperate roll functions to condensing functions
